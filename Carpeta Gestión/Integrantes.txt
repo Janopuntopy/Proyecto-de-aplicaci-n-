@@ -1,0 +1,13 @@
+Integrantes: 
+
+Nombre: José Luis Alonso Bugueño Millar
+Run: 21.752.195-5
+Cargo: Scrum Master
+-----------------------------------
+Nombre: Alejandro Andrés Gómez Vargas
+Run:20.785.456-5
+Cargo: Fullstack Móvil
+-----------------------------------
+Nombre: Sebastián Dimitri Valenzuela Muñoz
+Run:
+Cargo: QA Engineer
