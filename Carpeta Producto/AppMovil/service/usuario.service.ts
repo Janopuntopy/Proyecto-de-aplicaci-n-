@@ -8,12 +8,15 @@ export interface UsuarioPerfil {
   role: string;
   storeCode?: string;
   createdAt?: number;
+  photoUrl?: string; 
+
 }
 
 export interface OnboardingRequest {
   uid: string;
   alias: string;
   role: string;
+  storeCode?: string;
 }
 
 @Injectable({
@@ -21,19 +24,23 @@ export interface OnboardingRequest {
 })
 export class UsuarioService {
 
-  private urlBase = 'https://microservicio-usuarios-902749656527.us-central1.run.app/api/usuarios';
+  private urlBase =
+    'https://microservicio-usuarios-902749656527.us-central1.run.app/api/usuarios';
 
   constructor(private http: HttpClient) {}
 
   async consultarUsuario(uid: string): Promise<UsuarioPerfil | null> {
 
     try {
+
       const url = `${this.urlBase}/${uid}`;
-      return await firstValueFrom(this.http.get<UsuarioPerfil>(url));
+
+      return await firstValueFrom(
+        this.http.get<UsuarioPerfil>(url)
+      );
 
     } catch (error: any) {
 
-      //  IMPORTANTE: log real del error
       console.error(' ERROR GET usuario:', {
         status: error?.status,
         message: error?.message,
@@ -44,13 +51,17 @@ export class UsuarioService {
     }
   }
 
-  async registrarPerfil(datos: OnboardingRequest): Promise<UsuarioPerfil> {
+  async registrarPerfil(
+    datos: OnboardingRequest
+  ): Promise<UsuarioPerfil> {
 
     const url = `${this.urlBase}/onboarding`;
 
     try {
 
-      const res = await firstValueFrom(this.http.post<UsuarioPerfil>(url, datos));
+      const res = await firstValueFrom(
+        this.http.post<UsuarioPerfil>(url, datos)
+      );
 
       console.log(' POST onboarding OK:', res);
 
@@ -58,7 +69,6 @@ export class UsuarioService {
 
     } catch (error: any) {
 
-      //  ERROR REAL COMPLETO
       console.error(' ERROR POST onboarding:', {
         status: error?.status,
         message: error?.message,

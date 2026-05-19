@@ -32,4 +32,8 @@ export class AuthService {
     await GoogleAuth.signOut();
     await signOut(this.auth);
   }
+
+  async getCurrentUser() {
+    return this.auth.currentUser;
+  }
 }
