@@ -4,56 +4,171 @@ import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
 
-  // 🔥 RUTA INICIAL LIMPIA (SOLO DECISIÓN DE FLUJO)
+  // =========================================================
+  // REDIRECT PRINCIPAL
+  // =========================================================
   {
     path: '',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/home/home.module').then(m => m.HomePageModule)
+      import('./pages/redirect/redirect.module').then(
+        m => m.RedirectPageModule
+      )
   },
 
-  // 🔓 LOGIN (PÚBLICO)
+  // =========================================================
+  // LOGIN
+  // =========================================================
   {
     path: 'login',
     loadChildren: () =>
-      import('./pages/login/login.module').then(m => m.LoginPageModule)
+      import('./pages/login/login.module').then(
+        m => m.LoginPageModule
+      )
   },
 
-  // 🧭 ONBOARDING (PROTEGIDO POR AUTH)
+  // =========================================================
+  // ONBOARDING
+  // =========================================================
   {
     path: 'onboarding',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/onboarding/onboarding.module').then(m => m.OnboardingPageModule)
+      import('./pages/onboarding/onboarding.module').then(
+        m => m.OnboardingPageModule
+      )
   },
 
-  // 🏠 HOME CLIENT
+  // =========================================================
+  // HOME CLIENTE
+  // =========================================================
   {
     path: 'home',
+    canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/home/home.module').then(m => m.HomePageModule)
+      import('./pages/home/home.module').then(
+        m => m.HomePageModule
+      )
   },
 
-  // 🏠 HOME ADMIN
+  // =========================================================
+  // HOME ADMIN
+  // =========================================================
   {
     path: 'home-admin',
+    canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/home-admin/home-admin.module').then(m => m.HomeAdminPageModule)
+      import('./pages/home-admin/home-admin.module').then(
+        m => m.HomeAdminPageModule
+      )
   },
 
-  // 📦 STORE CODE (PROTEGIDO)
+  // =========================================================
+  // MENSAJES CLIENTE
+  // =========================================================
+  {
+    path: 'mensajes',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/mensajes/mensajes.module').then(
+        m => m.MensajesPageModule
+      )
+  },
+
+  // =========================================================
+  // MENSAJES ADMIN
+  // =========================================================
+  {
+    path: 'mensajes-admin',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/mensajes-admin/mensajes-admin.module').then(
+        m => m.MensajesAdminPageModule
+      )
+  },
+
+  // =========================================================
+  // EVENTOS
+  // =========================================================
+  {
+    path: 'eventos',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/eventos/eventos.module').then(m => m.EventosPageModule)
+  },
+  {
+    path: 'evento-detalle',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/evento-detalle/evento-detalle.module').then(m => m.EventoDetallePageModule)
+  },
+  {
+    path: 'evento-form',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/evento-form/evento-form.module').then(m => m.EventoFormPageModule)
+  },
+
+  // =========================================================
+  // PERFIL
+  // =========================================================
+  {
+    path: 'perfil',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/perfil/perfil.module').then(
+        m => m.PerfilPageModule
+      )
+  },
+
+  // =========================================================
+  // STORE CODE
+  // =========================================================
   {
     path: 'store-code',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/store-code/store-code.module').then(m => m.StoreCodePageModule)
+      import('./pages/store-code/store-code.module').then(
+        m => m.StoreCodePageModule
+      )
   },
 
-  // 🚫 FALLBACK
+  // =========================================================
+  // CONTACTO
+  // =========================================================
+  {
+    path: 'contacto',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/contacto/contacto.module').then(
+        m => m.ContactoPageModule
+      )
+  },
+
+  // =========================================================
+  // PARTICIPANTES Y MATCH
+  // =========================================================
+  {
+    path: 'participantes-admin',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/participantes-admin/participantes-admin.module').then(m => m.ParticipantesAdminPageModule)
+  },
+  {
+    path: 'match-admin',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/match-admin/match-admin.module').then(m => m.MatchAdminPageModule)
+  },
+  {
+    path: 'match-client',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/match-client/match-client.module').then(m => m.MatchClientPageModule)
+  },
+
+  // =========================================================
+  // FALLBACK
+  // =========================================================
   {
     path: '**',
     redirectTo: ''
   }
+
 ];
 
 @NgModule({
@@ -64,4 +179,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
