@@ -1,0 +1,194 @@
+:host {
+  --primary-gradient: linear-gradient(135deg, #ff8a00 0%, #da1b60 50%, #892cdc 100%);
+  --magenta-glow: rgba(218, 27, 96, 0.28);
+  --purple-glow: rgba(137, 44, 220, 0.28);
+  --dark-bg: #050507;
+}
+
+.match-admin-page {
+  --background: var(--dark-bg);
+  &::part(background) {
+    background: radial-gradient(circle at 20% 20%, var(--magenta-glow), transparent 40%),
+                radial-gradient(circle at 80% 70%, var(--purple-glow), transparent 40%), #050507;
+  }
+}
+
+.transparent-toolbar {
+  --background: transparent;
+  --border-width: 0;
+  padding: 12px 10px 0;
+}
+
+.admin-title {
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 3px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.72);
+  text-transform: uppercase;
+}
+
+.main-content {
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px 24px 40px;
+}
+
+.match-header {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  border-radius: 36px;
+  text-align: center;
+  padding: 30px 24px;
+  margin-bottom: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+  
+  .timer-display {
+    .label {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      font-weight: 800;
+    }
+    .timer {
+      font-size: 48px;
+      font-weight: 900;
+      margin: 10px 0;
+      background: linear-gradient(to bottom, #ffffff, #bdbdbd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: 'Inter', sans-serif;
+    }
+  }
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #da1b60;
+  margin: 20px 0 12px 8px;
+}
+
+.score-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  transition: 0.25s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    transform: translateY(-2px);
+  }
+
+  .player-info {
+    .alias {
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .score-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .points {
+      font-size: 26px;
+      font-weight: 900;
+      min-width: 40px;
+      text-align: center;
+      color: #da1b60;
+    }
+
+    ion-button {
+      --padding-start: 0;
+      --padding-end: 0;
+      --color: white;
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      --border-radius: 50%;
+    }
+  }
+}
+
+.footer-actions {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty-state-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 28px;
+  border-radius: 34px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  text-align: center;
+  margin: 20px auto;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  transition: 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-6px);
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.12);
+  }
+  
+  ion-icon {
+    font-size: 58px;
+    color: #892cdc;
+    margin-bottom: 20px;
+  }
+  
+  h3 { font-size: 22px; font-weight: 800; color: white; margin-bottom: 12px; }
+  p { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.55); margin: 0; }
+}
+
+ion-button {
+  --border-radius: 16px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  height: 56px;
+  text-transform: uppercase;
+
+  &.success-btn { 
+    --background: rgba(0, 200, 83, 0.1); 
+    --border-color: rgba(0, 200, 83, 0.4);
+    --border-width: 1px;
+    --border-style: solid;
+    --color: #00c853;
+  }
+  
+  &.danger-btn { 
+    --background: rgba(218, 27, 96, 0.1); 
+    --border-color: rgba(218, 27, 96, 0.4);
+    --border-width: 1px;
+    --border-style: solid;
+    --color: #ff4d6d;
+  }
+  
+  &.primary-btn {
+    --background: var(--primary-gradient);
+    --color: white;
+  }
+}

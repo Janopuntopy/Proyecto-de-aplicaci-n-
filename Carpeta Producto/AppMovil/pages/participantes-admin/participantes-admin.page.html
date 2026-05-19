@@ -1,0 +1,64 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()" class="back-btn" fill="clear">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="admin-title">Gestionar Participantes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-page" [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="main-content">
+    <div class="info-card" *ngIf="evento">
+      <h2>{{ evento.nombre }}</h2>
+      <p>Administra a los jugadores inscritos y verifica su asistencia.</p>
+    </div>
+
+    <div *ngIf="cargando" class="empty-state-card" style="padding: 20px;">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando participantes...</p>
+    </div>
+
+    <div *ngIf="!cargando && participantes.length === 0" class="empty-state-card">
+      <ion-icon name="people-outline" size="large"></ion-icon>
+      <h3>No hay inscritos</h3>
+      <p>Aún no hay jugadores inscritos en este evento.</p>
+    </div>
+
+    <div *ngIf="!cargando && participantes.length > 0" class="list-container">
+      <div *ngFor="let p of participantes" class="participant-item">
+        <div class="participant-info">
+          <div class="avatar-circle">
+            {{ p.alias.charAt(0).toUpperCase() }}
+          </div>
+          <div class="text-info">
+            <span class="alias">{{ p.alias }}</span>
+            <span class="role">{{ p.rolEvento }}</span>
+          </div>
+        </div>
+        
+        <div class="status-container">
+          <ion-badge [color]="p.ready ? 'success' : 'medium'" mode="ios">
+            {{ p.ready ? 'READY' : 'WAITING' }}
+          </ion-badge>
+          <ion-button fill="clear" color="danger" (click)="expulsar(p)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-footer" *ngIf="!cargando && participantes.length > 0">
+      <ion-button expand="block" class="primary-btn" (click)="crearMatch()">
+        <ion-icon name="play-outline" slot="start"></ion-icon>
+        Configurar Partida
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

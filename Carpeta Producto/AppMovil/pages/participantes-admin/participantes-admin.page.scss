@@ -1,0 +1,197 @@
+:host {
+  --primary-gradient: linear-gradient(135deg, #ff8a00 0%, #da1b60 50%, #892cdc 100%);
+  --magenta-glow: rgba(218, 27, 96, 0.28);
+  --purple-glow: rgba(137, 44, 220, 0.28);
+  --dark-bg: #050507;
+}
+
+.participantes-admin-page {
+  --background: var(--dark-bg);
+  &::part(background) {
+    background: radial-gradient(circle at 20% 20%, var(--magenta-glow), transparent 40%),
+                radial-gradient(circle at 80% 70%, var(--purple-glow), transparent 40%), #050507;
+  }
+}
+
+.transparent-toolbar {
+  --background: transparent;
+  --border-width: 0;
+  padding: 12px 10px 0;
+}
+
+.back-btn {
+  --background: transparent;
+  --color: rgba(255,255,255,0.85);
+  --box-shadow: none;
+  font-size: 24px;
+}
+
+.admin-title {
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 3px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.72);
+  text-transform: uppercase;
+}
+
+.main-content {
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 24px 80px;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  border-radius: 36px;
+  padding: 30px 24px;
+  text-align: left;
+  margin-bottom: 24px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+  
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+  }
+  p {
+    margin: 10px 0 0;
+    color: rgba(255,255,255,0.5);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}
+
+.participant-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 16px 20px;
+  transition: 0.25s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    transform: translateY(-2px);
+  }
+
+  .participant-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .avatar-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(218, 27, 96, 0.1);
+      border: 1px solid rgba(218, 27, 96, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 800;
+      color: #da1b60;
+      font-size: 18px;
+    }
+
+    .text-info {
+      display: flex;
+      flex-direction: column;
+      .alias {
+        font-weight: 700;
+        font-size: 16px;
+        color: white;
+      }
+      .role {
+        font-size: 13px;
+        color: rgba(255,255,255,0.4);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .status-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    ion-badge {
+      --padding-start: 8px;
+      --padding-end: 8px;
+      --padding-top: 4px;
+      --padding-bottom: 4px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      border-radius: 12px;
+      
+      &[color="success"] {
+        background: rgba(0, 200, 83, 0.12) !important; 
+        color: #b9f6ca !important; 
+        border: 1px solid rgba(0, 200, 83, 0.4) !important;
+      }
+      &[color="medium"] {
+        background: rgba(255, 255, 255, 0.05) !important; 
+        color: rgba(255, 255, 255, 0.4) !important; 
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      }
+    }
+  }
+}
+
+.action-footer {
+  margin-top: 24px;
+  padding-bottom: 20px;
+}
+
+.empty-state-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 28px;
+  border-radius: 34px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  text-align: center;
+  margin: 20px auto;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  transition: 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-6px);
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.12);
+  }
+  
+  ion-icon {
+    font-size: 58px;
+    color: #da1b60;
+    margin-bottom: 20px;
+  }
+  
+  h3 { font-size: 22px; font-weight: 800; color: white; margin-bottom: 12px; }
+  p { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.55); margin: 0; }
+}
+
+ion-button {
+  --border-radius: 16px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  height: 56px;
+  text-transform: uppercase;
+
+  &.primary-btn { 
+    --background: var(--primary-gradient); 
+    --color: white;
+  }
+}

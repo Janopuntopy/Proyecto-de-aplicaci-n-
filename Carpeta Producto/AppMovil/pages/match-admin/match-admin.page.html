@@ -1,0 +1,81 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()" fill="clear">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="actualizarDatos()" fill="clear">
+        <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="admin-title">Control de Partida</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-page">
+  <div class="main-content">
+    
+    <!-- Header de la partida -->
+    <div class="match-header" *ngIf="match">
+      <div class="timer-display">
+        <span class="label">TIEMPO TRANSCURRIDO</span>
+        <h1 class="timer">{{ tiempoRestante }}</h1>
+        <ion-badge [color]="match?.estado === 'ACTIVA' ? 'success' : 'warning'">
+          {{ match?.estado }}
+        </ion-badge>
+      </div>
+    </div>
+
+    <!-- Estado: No hay match -->
+    <div *ngIf="!match && !cargando" class="empty-state-card">
+      <ion-icon name="trophy-outline"></ion-icon>
+      <h3>Partida no iniciada</h3>
+      <p>Debes crear la partida con los jugadores que ya están en la tienda (Ready).</p>
+      <ion-button expand="block" class="primary-btn" (click)="crearMatch()">
+        Generar Partida
+      </ion-button>
+    </div>
+
+    <!-- Lista de Jugadores y Puntajes -->
+    <div *ngIf="match" class="scoreboard">
+      <h3 class="section-title">Tabla de Posiciones</h3>
+      <div *ngFor="let p of match.participantes" class="score-item">
+        <div class="player-info">
+          <span class="alias">{{ p.alias }}</span>
+        </div>
+        <div class="score-controls">
+          <ion-button fill="clear" (click)="ajustarScore(p, -1)" [disabled]="match?.estado === 'FINALIZADA'">
+            <ion-icon name="remove-circle-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <span class="points">{{ p.puntos }}</span>
+          <ion-button fill="clear" (click)="ajustarScore(p, 1)" [disabled]="match?.estado === 'FINALIZADA'">
+            <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones de Control -->
+    <div class="footer-actions" *ngIf="match">
+      <ion-button *ngIf="match?.estado === 'ESPERANDO'" expand="block" class="success-btn" (click)="empezarMatch()">
+        <ion-icon name="play-outline" slot="start"></ion-icon> Iniciar Cronómetro
+      </ion-button>
+
+      <ion-button *ngIf="match?.estado === 'ACTIVA'" expand="block" class="danger-btn" (click)="finalizarMatch()">
+        <ion-icon name="stop-circle-outline" slot="start"></ion-icon> Finalizar Partida
+      </ion-button>
+
+      <div *ngIf="match?.estado === 'FINALIZADA'" class="finished-card">
+        <ion-icon name="medal-outline" color="warning"></ion-icon>
+        <h2>Partida Finalizada</h2>
+        <p>Los puntajes han sido bloqueados.</p>
+        <ion-button expand="block" fill="outline" color="light" (click)="volver()">
+          Volver al Inicio
+        </ion-button>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

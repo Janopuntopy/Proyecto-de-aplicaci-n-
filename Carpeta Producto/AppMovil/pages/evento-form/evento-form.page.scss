@@ -1,0 +1,186 @@
+:host {
+  /* Variables estáticas idénticas a la Home */
+  --primary-gradient: linear-gradient(135deg, #ff8a00 0%, #da1b60 50%, #892cdc 100%);
+  --magenta-glow: rgba(218, 27, 96, 0.28);
+  --purple-glow: rgba(137, 44, 220, 0.28);
+  --dark-bg: #050507;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+@import '../../../theme/glass-styles.scss';
+
+/* Estructura de Fondo de la Página (Igual a la Home) */
+.form-page {
+  --background: var(--dark-bg);
+  &::part(background) {
+    background: radial-gradient(circle at 20% 20%, var(--magenta-glow), transparent 40%),
+                radial-gradient(circle at 80% 70%, var(--purple-glow), transparent 40%), #050507;
+  }
+}
+
+/* HEADER & TOOLBAR */
+.transparent-toolbar {
+  --background: transparent;
+  --border-width: 0;
+  padding: 12px 10px 0;
+}
+
+/* BOTÓN DE RETROCEDER (Efecto sutil de escala) */
+.back-btn {
+  --background: transparent;
+  --color: rgba(255,255,255,0.85);
+  --box-shadow: none;
+  font-size: 26px;
+  transition: 0.2s ease;
+  
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+/* MAIN CONTENT */
+.main-content {
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 24px 40px;
+}
+
+/* CONTENEDOR DEL FORMULARIO (Mismo estilo Cyber-Glass que las otras vistas) */
+.form-card {
+  @extend .glass-panel;
+  width: 100%;
+  max-width: 420px;
+  padding: 36px 26px;
+  border-radius: 36px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px);
+  text-align: left;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+}
+
+/* GRUPOS DE INPUTS */
+.input-group {
+  margin-bottom: 24px;
+
+  ion-label {
+    color: #ff9cbd;
+    font-weight: 800;
+    font-size: 11px; /* Letra un poco más pequeña como en la imagen */
+    margin-bottom: 12px;
+    display: block;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* Inputs y Textareas Premium */
+  ion-input, ion-textarea {
+    --background: rgba(15, 15, 15, 0.6); /* Más oscuro casi negro */
+    --color: #ffffff;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 14px;
+    --padding-bottom: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px; /* Más cuadrado como en la imagen */
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.25s ease;
+    
+    &.ion-focused {
+      border-color: rgba(218, 27, 96, 0.5);
+      --background: rgba(15, 15, 15, 0.8);
+      box-shadow: 0 0 10px rgba(218, 27, 96, 0.1);
+    }
+  }
+
+  /* Botón de fecha nativo de Ionic */
+  ion-datetime-button {
+    margin-top: 4px;
+    
+    ::part(native) {
+      background: rgba(100, 100, 100, 0.3); /* Gris medio según la captura */
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+    
+    &:active ::part(native) {
+      background: rgba(150, 150, 150, 0.4);
+    }
+  }
+}
+
+/* FILAS DE INPUTS COLAZO */
+.row-inputs {
+  display: flex;
+  gap: 20px; /* Un poco más de espacio */
+  align-items: flex-end; /* Para que los inputs se alineen por abajo si el label es más largo */
+  
+  .half-width {
+    flex: 1;
+    margin-bottom: 24px;
+  }
+}
+
+/* CHECKBOX */
+.checkbox-group {
+  margin: 16px 0 24px 0;
+
+  ion-checkbox {
+    --checkbox-background-checked: #da1b60;
+    --border-color-checked: #da1b60;
+    --border-radius: 6px;
+    --border-color: rgba(255, 255, 255, 0.3); /* Borde visible gris/blanco */
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 15px;
+    font-weight: 600;
+    width: 100%;
+    
+    &::part(container) {
+      transition: 0.2s ease;
+      margin-left: 10px; /* Separar un poco el texto del checkbox si está a la derecha */
+    }
+  }
+}
+
+/* CONTENEDOR Y BOTÓN DE ENVÍO */
+.submit-btn-container {
+  margin-top: 36px;
+
+  .primary-btn {
+    --background: var(--primary-gradient);
+    --border-radius: 18px; 
+    height: 56px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-size: 15px;
+    text-transform: uppercase;
+    --color: #111111; /* Color oscuro para el texto según captura 1 */
+    --box-shadow: 0 10px 25px rgba(218, 27, 96, 0.45);
+    transition: 0.2s ease;
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+/* COMPONENTE INTERNO DEL CALENDARIO (MODAL / POPOVER) */
+ion-datetime {
+  --background: rgba(15, 15, 18, 0.96);
+  --title-color: #ff9cbd;
+  --wheel-highlight-background: rgba(218, 27, 96, 0.25);
+  --wheel-highlight-border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}

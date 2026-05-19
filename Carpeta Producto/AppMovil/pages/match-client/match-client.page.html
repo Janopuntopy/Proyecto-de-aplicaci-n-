@@ -1,0 +1,78 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()" fill="clear">
+        <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="client-title">Mi Partida</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-page">
+  <div class="main-content">
+
+    <div *ngIf="cargando" class="empty-state-card">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Buscando partida activa...</p>
+    </div>
+
+    <!-- Match Header (Timer) -->
+    <div class="match-info" *ngIf="match">
+      <div class="timer-section">
+        <h1 class="timer">{{ tiempoRestante }}</h1>
+        <ion-badge [color]="match?.estado === 'ACTIVA' ? 'success' : 'warning'">
+          {{ match?.estado }}
+        </ion-badge>
+      </div>
+      
+      <div class="my-score-section">
+        <span class="label">MIS PUNTOS</span>
+        <h2 class="score-value">{{ misPuntos }}</h2>
+      </div>
+    </div>
+
+    <!-- No hay match -->
+    <div *ngIf="!match && !cargando" class="empty-state-card">
+      <ion-icon name="game-controller-outline"></ion-icon>
+      <h3>Sin partidas activas</h3>
+      <p>Espera a que el organizador inicie la ronda.</p>
+      <ion-button expand="block" class="primary-btn" (click)="cargarMatch()">
+        Reintentar
+      </ion-button>
+    </div>
+
+    <!-- Match Finalizado -->
+    <div *ngIf="match?.estado === 'FINALIZADA'" class="empty-state-card finished-card">
+      <ion-icon name="flag-outline" color="warning"></ion-icon>
+      <h3>Partida Finalizada</h3>
+      <p>El administrador ha cerrado la partida. Consulta tus puntos finales abajo.</p>
+      <ion-button expand="block" fill="outline" color="light" (click)="volver()">
+        Volver al Inicio
+      </ion-button>
+    </div>
+
+    <!-- Controles de Jugador -->
+    <div class="player-controls" *ngIf="match && match?.estado === 'ACTIVA'">
+      <h3 class="section-title">Actualizar mi Puntaje</h3>
+      <div class="grid-buttons">
+        <ion-button class="glass-btn plus-btn" (click)="reportarPuntos(1)">
+          <ion-icon name="add-outline" slot="start"></ion-icon> +1 Punto
+        </ion-button>
+        <ion-button class="glass-btn minus-btn" (click)="reportarPuntos(-1)">
+          <ion-icon name="remove-outline" slot="start"></ion-icon> -1 Punto
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Scoreboard Simplificado -->
+    <div class="scoreboard-summary" *ngIf="match">
+      <h3 class="section-title">Tabla en vivo</h3>
+      <div *ngFor="let p of match.participantes" class="summary-item" [class.is-me]="p.userUid === userUid">
+        <span>{{ p.alias }}</span>
+        <span class="puntos">{{ p.puntos }}</span>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
