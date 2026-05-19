@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {
+  CanActivate,
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree
+} from '@angular/router';
+
 import { getAuth } from 'firebase/auth';
 import { UsuarioService } from '../service/usuario.service';
 
@@ -24,7 +31,7 @@ export class AuthGuard implements CanActivate {
 
     const user = auth.currentUser;
 
-    //  NO LOGEADO → LOGIN
+    //  NO LOGEADO
     if (!user) {
       return this.router.createUrlTree(['/login']);
     }
@@ -32,17 +39,21 @@ export class AuthGuard implements CanActivate {
     let perfil = null;
 
     try {
-      perfil = await this.usuarioService.consultarUsuario(user.uid);
+
+      perfil = await this.usuarioService
+        .consultarUsuario(user.uid);
+
     } catch (e) {
+
       console.error('Backend error:', e);
-      //  si el backend falla, mejor bloquear acceso
+
       return this.router.createUrlTree(['/login']);
     }
 
-    //  USUARIO SIN PERFIL → ONBOARDING
+    //  SIN PERFIL → ONBOARDING
     if (!perfil) {
 
-      // permitir entrar a onboarding
+      // permitir entrar al onboarding
       if (state.url === '/onboarding') {
         return true;
       }
@@ -50,21 +61,28 @@ export class AuthGuard implements CanActivate {
       return this.router.createUrlTree(['/onboarding']);
     }
 
-    //  SI YA TIENE PERFIL → NO DEBE VOLVER A ONBOARDING
+    //  YA TIENE PERFIL
+    // NO volver a onboarding
     if (state.url === '/onboarding') {
+
       return this.router.createUrlTree(
-        perfil.role === 'ADMIN' ? ['/home-admin'] : ['/home']
+        perfil.role === 'ADMIN'
+          ? ['/home-admin']
+          : ['/home']
       );
     }
 
-    //  ROOT → REDIRECCIÓN SEGÚN ROL
+    //  ROOT → redirección central
     if (state.url === '/' || state.url === '') {
+
       return this.router.createUrlTree(
-        perfil.role === 'ADMIN' ? ['/home-admin'] : ['/home']
+        perfil.role === 'ADMIN'
+          ? ['/home-admin']
+          : ['/home']
       );
     }
 
-    //  TODO OK → PERMITIR
+    //  TODO OK
     return true;
   }
 }
