@@ -9,5 +9,5 @@ Run:20.785.456-5
 Cargo: Fullstack Móvil
 -----------------------------------
 Nombre: Sebastián Dimitri Valenzuela Muñoz
-Run:
+Run:21.095.424-4
 Cargo: QA Engineer
